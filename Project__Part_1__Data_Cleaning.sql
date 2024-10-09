@@ -20,7 +20,7 @@
 
 TABLE layoffs_raw;		-- 2361 rows
 
--- The column 'percentage_laid_off' is Datatype TEXT instead of DECIMAL
+-- After import the column 'percentage_laid_off' is Datatype TEXT, instead of DECIMAL
 SELECT *
 FROM layoffs_raw
 WHERE LENGTH(percentage_laid_off) > 4;		-- Result: 5 records with more than 2 decimal places in the column 'percentage_laid_off' (Datatype TEXT)
@@ -82,7 +82,7 @@ FROM layoffs_staging_1
 )
 SELECT *
 FROM duplic_rows_CTE
-WHERE row_n_over > 1;		-- Result:  5 rows  (row_n:  1690, 1493, 2255, 626, 2358) (company:  Casper, Cazoo, Hibob, Wildlife Studios, Yahoo)
+WHERE row_n_over > 1;		-- Result:  5 rows  (row_n:  1690, 1493, 2255, 626, 2358) (column company:  'Casper', 'Cazoo', 'Hibob', 'Wildlife Studios', 'Yahoo')
 
 -- Check the duplicate rows
 SELECT *
@@ -229,7 +229,7 @@ FROM layoffs_staging_2
 WHERE date_1 IS NULL;		-- 1 row		row_n: 2357		company: 'Blackbaud'
 
 
--- Additional check of other columns:  company, industry, country
+-- Additional check of the other columns:  company, industry, country
 
 SELECT *
 FROM layoffs_staging_2
