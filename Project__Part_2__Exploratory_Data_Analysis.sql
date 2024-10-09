@@ -57,10 +57,10 @@ FROM layoffs_staging_2 AS tbl_1
 JOIN layoffs_staging_2 AS tbl_2
 	ON   tbl_1.company  = tbl_2.company
 	AND (tbl_1.country != tbl_2.country OR tbl_1.location != tbl_2.location)
-GROUP BY tbl_1.company, tbl_1.country, tbl_1.location -- optional: ... WITH ROLLUP
+GROUP BY tbl_1.company, tbl_1.country, tbl_1.location			-- optional: ... WITH ROLLUP
 HAVING sum_laid_off IS NOT NULL
 ORDER BY tbl_1.company, tbl_1.country, tbl_1.location;			-- 54 rows	/ 62 rows without HAVING ...	/	127 rows with HAVING ... & WITH ROLLUP
--- For fun - incorrect data:  company 'Oda',  location 'Oslo',  country 'Sweden' vs 'Norway'  :)
+-- For fun - incorrect data:  company 'Oda',  location 'Oslo',  country 'Sweden' vs 'Norway'
 
 
 --
