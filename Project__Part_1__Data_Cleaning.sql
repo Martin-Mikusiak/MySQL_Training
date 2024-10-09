@@ -20,7 +20,7 @@
 
 TABLE layoffs_raw;		-- 2361 rows
 
--- After import the column 'percentage_laid_off' is Datatype TEXT, instead of DECIMAL
+-- After import of the dataset into MySQL, the column 'percentage_laid_off' is Datatype TEXT, instead of DECIMAL
 SELECT *
 FROM layoffs_raw
 WHERE LENGTH(percentage_laid_off) > 4;		-- Result: 5 records with more than 2 decimal places in the column 'percentage_laid_off' (Datatype TEXT)
