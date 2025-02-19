@@ -2,7 +2,9 @@
 -- **********************************
 -- https://www.analystbuilder.com/questions
 
-
+-- 1. Difficulty: Easy		(11 Questions)
+-- 2. Difficulty: Moderate	(12 Questions)
+-- 3. Difficulty: Hard		( 3 Questions)
 
 
 
