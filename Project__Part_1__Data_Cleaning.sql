@@ -2,11 +2,14 @@
 -- **************************************
 
 -- Links
--- Dataset:        https://www.kaggle.com/datasets/swaptr/layoffs-2022
--- Guiding video:  https://www.youtube.com/watch?v=4UltKCnnnTA
+
+-- Dataset (used):      https://github.com/AlexTheAnalyst/MySQL-YouTube-Series/blob/main/layoffs.csv
+-- Dataset (original):  https://www.kaggle.com/datasets/swaptr/layoffs-2022
+-- Guiding video:       https://www.youtube.com/watch?v=4UltKCnnnTA
 
 
 -- Approach
+
 -- 0. Copy the Raw data / table into the Staging table
 -- 1. Remove duplicate rows
 -- 2. Standardize the Data and Fix errors
@@ -18,6 +21,10 @@
 -- 0. Copy the Raw data / table into the Staging table
 -- ***************************************************
 
+-- Create a new schema in the connected server ...
+-- Tables --> Table Data Import Wizard ...
+
+
 TABLE layoffs_raw;		-- 2361 rows
 
 -- After import of the dataset into MySQL, the column 'percentage_laid_off' is Datatype TEXT, instead of DECIMAL
@@ -27,9 +34,9 @@ WHERE LENGTH(percentage_laid_off) > 4;		-- Result: 5 records with more than 2 de
 
 
 CREATE TABLE layoffs_staging_1
-LIKE layoffs_raw;
+LIKE layoffs_raw;							-- Copy the column names and datatypes into the new table
 
-TABLE layoffs_staging_1;
+TABLE layoffs_staging_1;					-- Empty table
 
 ALTER TABLE layoffs_staging_1
 ADD COLUMN row_n INT NOT NULL AUTO_INCREMENT FIRST,
