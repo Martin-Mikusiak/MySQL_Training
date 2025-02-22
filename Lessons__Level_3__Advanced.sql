@@ -2,6 +2,8 @@
 -- Level 3 - Advanced
 -- ******************
 
+-- https://www.youtube.com/@AlexTheAnalyst/videos
+
 -- 3.1. CTEs (Common Table Expressions)
 -- 3.2. Temporary Tables
 -- 3.3. Stored Procedures
