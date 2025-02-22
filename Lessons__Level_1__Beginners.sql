@@ -2,12 +2,15 @@
 -- Level 1 - Beginners
 -- *******************
 
+-- https://www.youtube.com/@AlexTheAnalyst/videos
+
 -- 1.1. Create a local training Database & Tables
 -- 1.2. SELECT Statement
 -- 1.3. WHERE Clause
 -- 1.4. GROUP BY and ORDER BY
 -- 1.5. HAVING vs. WHERE
 -- 1.6. LIMIT and Aliasing
+
 -- **********************************************
 
 
