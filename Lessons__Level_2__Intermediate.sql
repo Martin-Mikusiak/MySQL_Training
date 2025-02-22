@@ -2,6 +2,8 @@
 -- Level 2 - Intermediate
 -- **********************
 
+-- https://www.youtube.com/@AlexTheAnalyst/videos
+
 -- 2.1. JOINs
 -- 2.2. UNIONs
 -- 2.3. String Functions
