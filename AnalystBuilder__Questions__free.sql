@@ -3,9 +3,38 @@
 -- https://www.analystbuilder.com/questions
 
 -- Contents
--- 1. Difficulty: Easy		(11 Questions)
--- 2. Difficulty: Moderate	(12 Questions)
--- 3. Difficulty: Hard		( 3 Questions)
+
+-- 1. Difficulty: Easy  (11 Questions)
+--    1.1 Tesla Models
+--    1.2 Heart Attack Risk
+--    1.3 Apply Discount
+--    1.4 Million Dollar Store
+--    1.5 Chocolate
+--    1.6 On The Way Out
+--    1.7 Sandwich Generation
+--    1.8 Electric Bike Replacement
+--    1.9 Car Failure
+--    1.10 Perfect Data Analyst
+--    1.11 Costco Rotisserie Loss
+
+-- 2. Difficulty: Moderate  (12 Questions)
+--    2.1 Senior Citizen Discount
+--    2.2 LinkedIn Famous
+--    2.3 Company Wide Increase
+--    2.4 Media Addicts
+--    2.5 Bike Price
+--    2.6 Direct Reports
+--    2.7 Food Divides Us
+--    2.8 Kroger's Members
+--    2.9 Tech Layoffs
+--    2.10 Separation
+--    2.11 TMI (Too Much Information)
+--    2.12 Shrink-flation
+
+-- 3. Difficulty: Hard  (3 Questions)
+--    3.1 Temperature Fluctuations
+--    3.2 Cake vs Pie
+--    3.3 Kelly's 3rd Purchase
 
 
 
