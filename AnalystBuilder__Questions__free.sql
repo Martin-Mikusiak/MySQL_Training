@@ -2,6 +2,7 @@
 -- **********************************
 -- https://www.analystbuilder.com/questions
 
+-- Contents
 -- 1. Difficulty: Easy		(11 Questions)
 -- 2. Difficulty: Moderate	(12 Questions)
 -- 3. Difficulty: Hard		( 3 Questions)
@@ -147,10 +148,11 @@ ORDER BY owner_name;
 
 SELECT candidate_id
 FROM candidates
-WHERE   problem_solving = 'X'
-	AND	sql_experience = 'X'
-	AND	(python = 'X' OR r_programming = 'X')
-	AND	domain_knowledge = 'X'
+WHERE
+	problem_solving = 'X' AND
+	sql_experience = 'X' AND
+	(python = 'X' OR r_programming = 'X') AND
+	domain_knowledge = 'X'
 ORDER BY candidate_id;
 
 
