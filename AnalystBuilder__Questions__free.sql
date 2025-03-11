@@ -1,4 +1,4 @@
--- Analyst Builder - Questions (only "free")
+-- Analyst Builder - Questions (only "Free")
 -- *****************************************
 -- https://www.analystbuilder.com/questions
 
