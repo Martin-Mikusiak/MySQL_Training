@@ -1,5 +1,5 @@
--- Analyst Builder - Questions (free)
--- **********************************
+-- Analyst Builder - Questions (only "free")
+-- *****************************************
 -- https://www.analystbuilder.com/questions
 
 -- Contents
@@ -31,15 +31,16 @@
 --    2.11 TMI (Too Much Information)
 --    2.12 Shrink-flation
 
--- 3. Difficulty: Hard  (3 Questions)
+-- 3. Difficulty: Hard  (4 Questions)
 --    3.1 Temperature Fluctuations
 --    3.2 Cake vs Pie
 --    3.3 Kelly's 3rd Purchase
+--    3.4 Marketing Spend
 
 
 
--- 1. Difficulty: Easy
--- *******************
+-- 1. Difficulty: Easy  (11 Questions)
+-- ***********************************
 
 -- 1.1 Tesla Models
 -- https://www.analystbuilder.com/questions/tesla-models-soJdJ
@@ -198,8 +199,8 @@ FROM sales;
 
 
 
--- 2. Difficulty: Moderate
--- ***********************
+-- 2. Difficulty: Moderate  (12 Questions)
+-- ***************************************
 
 -- 2.1 Senior Citizen Discount
 -- https://www.analystbuilder.com/questions/senior-citizen-discount-fRxVJ
@@ -400,8 +401,8 @@ ORDER BY product_name;
 
 
 
--- 3. Difficulty: Hard
--- *******************
+-- 3. Difficulty: Hard  (4 Questions)
+-- **********************************
 
 -- 3.1 Temperature Fluctuations
 -- https://www.analystbuilder.com/questions/temperature-fluctuations-ftFQu
@@ -471,3 +472,42 @@ SELECT
 FROM cte_row_n
 WHERE row_n = 3
 ORDER BY customer_id;
+
+
+
+-- 3.4 Marketing Spend
+-- https://www.analystbuilder.com/questions/marketing-spend-mrTJL
+
+-- Calculate the Return on Investment (ROI) for each campaign and identify the top 25% of campaigns
+-- that have the highest ROI. Round ROI to the nearest whole number.
+-- The output should have the columns Campaign_ID, Campaign_Name, ROI
+-- and should be ordered by ROI in descending order and Campaign_ID in descending order.
+-- Only include the top 25% of campaigns with the highest ROI.
+
+WITH cte_roi AS
+(
+SELECT
+    campaign_id,
+    campaign_name,
+    ROUND((revenue_generated - investment) / investment * 100) AS ROI
+FROM marketing_spend
+),
+cte_row_n AS
+(
+SELECT
+    *,
+    ROW_NUMBER() OVER(ORDER BY ROI DESC, campaign_id DESC) AS row_num
+FROM cte_roi
+ORDER BY row_num
+)
+SELECT
+    campaign_id,
+    campaign_name,
+    ROI
+FROM cte_row_n
+WHERE row_num <= (SELECT ROUND(COUNT(*) * 0.25) AS lmt_rows FROM marketing_spend);
+
+-- Note: MySQL 'LIMIT' clause allows to use only nonnegative integer constants, 
+-- not dynamically calculated values (like top 25% of the total rows).
+-- The 'LIMIT' clause value cannot be an expression, the result of another query, or the value of MySQL variable.
+-- That's why the two CTEs, Window function 'ROW_NUMBER() OVER()' and subquery were used here.
