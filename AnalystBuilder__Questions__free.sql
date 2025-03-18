@@ -410,13 +410,16 @@ ORDER BY product_name;
 -- Write a query to find all dates with higher temperatures compared to the previous dates (yesterday).
 -- Order dates in ascending order.
 
+WITH cte_t_diff AS
+(
 SELECT
-	t1.date AS date_higher_t
-FROM temperatures AS t1
-JOIN temperatures AS t2
-	ON t1.date = ADDDATE(t2.date, 1)
-WHERE t1.temperature > t2.temperature
-ORDER BY date_higher_t;
+    *,
+    temperature - LAG(temperature) OVER (ORDER BY date) AS t_diff
+FROM temperatures
+)
+SELECT date
+FROM cte_t_diff
+WHERE t_diff > 0;
 
 
 
