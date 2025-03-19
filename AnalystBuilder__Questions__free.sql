@@ -434,6 +434,29 @@ WHERE t_diff > 0;
 -- Return the result table ordered by Date_Sold.
 -- Columns in output should be date_sold, difference, and sold_more.
 
+-- Solution #1 - using a CTE / pivot
+WITH cte_pivot AS
+(
+SELECT
+    date_sold,
+    SUM(CASE WHEN product = 'Cake' THEN IFNULL(amount_sold, 0) END) AS c_sold,
+    SUM(CASE WHEN product = 'Pie'  THEN IFNULL(amount_sold, 0) END) AS p_sold
+FROM desserts
+GROUP BY date_sold
+ORDER BY date_sold
+)
+SELECT
+    date_sold,
+    ABS(c_sold - p_sold) AS difference,
+    CASE
+        WHEN c_sold > p_sold THEN 'Cake'
+        WHEN c_sold < p_sold THEN 'Pie'
+        ELSE 'Equal'
+    END AS sold_more
+FROM cte_pivot;
+
+
+-- Solution #2 - using a Self-Join
 SELECT
 	d1.date_sold,
 	ABS(IFNULL(d1.amount_sold, 0) - IFNULL(d2.amount_sold, 0)) AS difference,
