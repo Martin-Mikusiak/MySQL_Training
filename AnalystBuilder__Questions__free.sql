@@ -296,13 +296,34 @@ WHERE bike_price IS NOT NULL AND bike_sold = 'Y';
 -- Note: Managers will have "Manager" in their title.
 -- Report the Manager ID, Manager Title, and the number of direct reports in your output.
 
+-- Solution #1 - using a CTE and then JOIN
+WITH cte_dr_count AS
+(
 SELECT
-	dr_m.employee_id AS manager_id,
-	dr_m.position    AS manager_position,
-	COUNT(*)         AS direct_reports
+    managers_id,
+    COUNT(*) AS direct_reports_count
+FROM direct_reports
+WHERE managers_id IS NOT NULL
+GROUP BY managers_id
+)
+SELECT
+    employee_id AS manager_id,
+    position    AS manager_title,
+    direct_reports_count
+FROM direct_reports
+JOIN cte_dr_count
+    ON employee_id = cte_dr_count.managers_id
+WHERE position LIKE '%Manager%';
+
+
+-- Solution #2 - using a Self-JOIN
+SELECT
+    dr_m.employee_id AS manager_id,
+    dr_m.position    AS manager_title,
+    COUNT(*)         AS direct_reports_count
 FROM direct_reports AS dr_e
 JOIN direct_reports AS dr_m
-	ON dr_e.managers_id = dr_m.employee_id
+    ON dr_e.managers_id = dr_m.employee_id
 WHERE dr_m.position LIKE '%Manager%'
 GROUP BY manager_id;
 
@@ -414,7 +435,7 @@ WITH cte_t_diff AS
 (
 SELECT
     *,
-    temperature - LAG(temperature) OVER (ORDER BY date) AS t_diff
+    temperature - LAG(temperature) OVER(ORDER BY date) AS t_diff
 FROM temperatures
 )
 SELECT date
@@ -456,7 +477,7 @@ SELECT
 FROM cte_pivot;
 
 
--- Solution #2 - using a Self-Join
+-- Solution #2 - using a Self-JOIN
 SELECT
 	d1.date_sold,
 	ABS(IFNULL(d1.amount_sold, 0) - IFNULL(d2.amount_sold, 0)) AS difference,
@@ -515,25 +536,19 @@ WITH cte_roi AS
 SELECT
     campaign_id,
     campaign_name,
-    ROUND((revenue_generated - investment) / investment * 100) AS ROI
+    ROUND((revenue_generated - investment) / investment * 100) AS roi_pct
 FROM marketing_spend
 ),
-cte_row_n AS
+cte_ntile_4 AS
 (
 SELECT
     *,
-    ROW_NUMBER() OVER(ORDER BY ROI DESC, campaign_id DESC) AS row_num
+    NTILE(4) OVER(ORDER BY roi_pct DESC, campaign_id DESC) AS ntile_4_num
 FROM cte_roi
-ORDER BY row_num
 )
 SELECT
     campaign_id,
     campaign_name,
-    ROI
-FROM cte_row_n
-WHERE row_num <= (SELECT ROUND(COUNT(*) * 0.25) AS lmt_rows FROM marketing_spend);
-
--- Note: MySQL 'LIMIT' clause allows to use only nonnegative integer constants, 
--- not dynamically calculated values (like top 25% of the total rows).
--- The 'LIMIT' clause value cannot be an expression, the result of another query, or the value of MySQL variable.
--- That's why the two CTEs, Window function 'ROW_NUMBER() OVER()' and subquery were used here.
+    roi_pct
+FROM cte_ntile_4
+WHERE ntile_4_num = 1;
