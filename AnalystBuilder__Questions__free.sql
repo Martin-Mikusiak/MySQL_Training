@@ -66,7 +66,10 @@ LIMIT 1;
 
 SELECT *
 FROM patients
-WHERE age > 50 AND cholesterol >= 240 AND weight >= 200
+WHERE
+    age         >   50 AND
+    cholesterol >= 240 AND
+    weight      >= 200
 ORDER BY cholesterol DESC;
 
 
@@ -80,7 +83,9 @@ ORDER BY cholesterol DESC;
 
 SELECT COUNT(customer_id)		-- or:  SELECT COUNT(*)
 FROM customers
-WHERE age > 65 OR total_purchase > 200;
+WHERE
+    age            >  65 OR
+    total_purchase > 200;
 
 
 
