@@ -1,6 +1,9 @@
--- Analyst Builder - Questions (only "Free")
--- *****************************************
+-- Analyst Builder - Technical Questions (only the "Free" ones)
+-- ************************************************************
 -- https://www.analystbuilder.com/questions
+
+-- My own solutions in MySQL
+
 
 -- Contents
 
@@ -125,7 +128,7 @@ WHERE product_name LIKE '%chocolate%';
 
 SELECT employee_id
 FROM employees
-ORDER BY birth_date ASC
+ORDER BY birth_date
 LIMIT 3;
 
 
@@ -170,7 +173,9 @@ SELECT
 	owner_name,
 	vehicle
 FROM inspections
-WHERE critical_issues = 0 AND minor_issues <= 3
+WHERE
+	critical_issues  = 0 AND
+	minor_issues    <= 3
 ORDER BY owner_name;
 
 
@@ -184,8 +189,8 @@ ORDER BY owner_name;
 SELECT candidate_id
 FROM candidates
 WHERE
-	problem_solving = 'X' AND
-	sql_experience = 'X' AND
+	problem_solving  = 'X' AND
+	sql_experience   = 'X' AND
 	(python = 'X' OR r_programming = 'X') AND
 	domain_knowledge = 'X'
 ORDER BY candidate_id;
@@ -197,7 +202,7 @@ ORDER BY candidate_id;
 
 -- Using the sales table, calculate how much money they have lost on their rotisserie chickens this year. Round to the nearest whole number.
 
-SELECT ROUND(SUM(lost_revenue_millions)) AS Total_loss
+SELECT ROUND(SUM(lost_revenue_millions)) AS total_loss
 FROM sales;
 
 
@@ -232,7 +237,7 @@ ORDER BY customer_id;
 
 SELECT
 	post_id,
-	(actions / impressions * 100) AS popularity
+	ROUND((actions / impressions * 100), 4) AS popularity
 FROM linkedin_posts
 WHERE (actions / impressions * 100) >= 1
 ORDER BY popularity DESC;
@@ -290,7 +295,9 @@ ORDER BY first_name;
 
 SELECT ROUND(AVG(bike_price), 2) AS avg_bike_price
 FROM inventory
-WHERE bike_price IS NOT NULL AND bike_sold = 'Y';
+WHERE
+	bike_price IS NOT NULL AND
+	bike_sold = 'Y';
 
 
 
@@ -370,7 +377,7 @@ WHERE has_member_card = 'Y';
 
 SELECT
 	company,
-	ROUND(employees_fired / company_size * 100, 2) AS Percentage_Laid_Off
+	ROUND(employees_fired / company_size * 100, 2) AS pct_laid_off
 FROM tech_layoffs
 ORDER BY company;
 
